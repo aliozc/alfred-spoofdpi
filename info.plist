@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.github.aliozc.alfred-spoofdpi</string>
+	<key>connections</key>
+	<dict>
+		<key>3F1585A4-E402-4C06-83FC-5014706F2C4E</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>95BEEC3F-6E9C-4BA6-8708-866EE8D39039</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>95BEEC3F-6E9C-4BA6-8708-866EE8D39039</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>69BEEDA8-10A8-4F08-BF9D-599EBD264704</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Ali Özcan</string>
+	<key>description</key>
+	<string>Check the status and toggle the DPI service</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>SpoofDPI</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>#!/bin/bash
+
+# !!! Replace with YOUR spoofdpi path !!!
+SPOOFDPI_PATH="${spoofdpiPath}"
+
+if [ "{query}" = "start" ]; then
+    $SPOOFDPI_PATH &gt; /tmp/spoofdpi.log 2&gt;&amp;1 &amp;
+    echo "Started SpoofDPI"
+elif [ "{query}" = "stop" ]; then
+    pkill -x spoofdpi
+    echo "Stopped SpoofDPI"
+fi</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>95BEEC3F-6E9C-4BA6-8708-866EE8D39039</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>SpoofDPI</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>69BEEDA8-10A8-4F08-BF9D-599EBD264704</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>spoof</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Checking....</string>
+				<key>script</key>
+				<string>#!/bin/bash
+
+if pgrep -x spoofdpi &gt; /dev/null 2&gt;&amp;1; then
+    echo '{"items": [{"title": "Stop SpoofDPI", "subtitle": "🟢 Currently running", "arg": "stop"}]}'
+else
+    echo '{"items": [{"title": "Start SpoofDPI", "subtitle": "🔴 Currently stopped", "arg": "start"}]}'
+fi</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Check the status and toggle the DPI service</string>
+				<key>title</key>
+				<string>Control SpoofDPI</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>3F1585A4-E402-4C06-83FC-5014706F2C4E</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>3F1585A4-E402-4C06-83FC-5014706F2C4E</key>
+		<dict>
+			<key>xpos</key>
+			<real>220</real>
+			<key>ypos</key>
+			<real>220</real>
+		</dict>
+		<key>69BEEDA8-10A8-4F08-BF9D-599EBD264704</key>
+		<dict>
+			<key>xpos</key>
+			<real>565</real>
+			<key>ypos</key>
+			<real>220</real>
+		</dict>
+		<key>95BEEC3F-6E9C-4BA6-8708-866EE8D39039</key>
+		<dict>
+			<key>xpos</key>
+			<real>390</real>
+			<key>ypos</key>
+			<real>220</real>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>/opt/homebrew/bin/spoofdpi</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Choose the binary file for SpoofDPI.</string>
+			<key>label</key>
+			<string>SpoofDPI Location</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>spoofdpiPath</string>
+		</dict>
+	</array>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>1.0.1</string>
+	<key>webaddress</key>
+	<string>https://github.com/aliozc/alfred-spoofdpi</string>
+</dict>
+</plist>
